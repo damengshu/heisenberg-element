@@ -1,4 +1,4 @@
-import Vue, { getCurrentInstance, nextTick, ref, unref, watchEffect, toRaw } from "vue"
+import { getCurrentInstance, nextTick, ref, unref, watchEffect, toRaw } from "vue"
 import { isEqual } from "loadsh"
 
 const dataTransferRef = ref({})
@@ -37,7 +37,7 @@ export function useDrawer () {
       getInstance() && getInstance().setDrawerProps(props)
     },
     openDrawer: (data, openOnSet = true) => {
-      getInstance() && getInstance().setDrawerProps({ visible: true })
+      getInstance() && getInstance().setDrawerProps({ value: true })
       if (!data) return
       if (openOnSet) {
         dataTransferRef.value = Object.assign({}, unref(dataTransferRef), {

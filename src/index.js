@@ -1,5 +1,7 @@
-// 代替import进行动态引入，webpack中方法
-import { useTable } from './hooks/useTable'; const requireComponents = require.context('./components', true, /\.vue$/)
+import { useTable } from './hooks/useTable';
+import { useDrawer, useDrawerInner } from "./hooks/useDrawer";
+
+const requireComponents = require.context('./components', true, /\.vue$/)
 
 const install = (Vue) => {
   if (install.installed) return
@@ -20,5 +22,7 @@ export default {
 }
 
 export {
-  useTable
+  useTable,
+  useDrawer,
+  useDrawerInner
 }

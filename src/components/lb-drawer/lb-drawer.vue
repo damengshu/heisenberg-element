@@ -14,61 +14,87 @@
       <div class="drawer-footer">
         <slot name="footer">
           <el-button @click="visible = false">取消</el-button>
-          <el-button type="primary" @click="handleConfirm" :loading="propsRef.confirmLoading">确定</el-button>
+          <el-button
+            type="primary"
+            @click="handleConfirm"
+            :loading="propsRef.confirmLoading"
+          >
+            确定
+          </el-button>
         </slot>
       </div>
     </div>
   </el-drawer>
 </template>
 
-<script setup>
-import { computed, onMounted, getCurrentInstance, ref, unref } from 'vue'
-import { cloneDeep } from "loadsh"
+<script setup name="lb-drawer">
+import {
+  computed,
+  onMounted,
+  getCurrentInstance,
+  ref,
+  unref,
+  watch,
+} from "vue";
+import { cloneDeep } from "loadsh";
 
-const instance = getCurrentInstance()
+const instance = getCurrentInstance();
 const propsRef = ref({
-  visible: false,
-  confirmLoading: false
-})
+  value: false,
+  confirmLoading: false,
+});
 
 const props = defineProps({
-  visible: {
+  value: {
     type: Boolean,
-    default: false
+    default: false,
   },
   confirmLoadong: {
     type: Boolean,
-    default: false
+    default: false,
   },
-})
-const emit = defineEmits(['update:visible', 'confirm', 'register'])
+});
+
+const emit = defineEmits(["update:value", "confirm", "register"]);
 
 const visible = computed({
-  get () {
-    return props.visible
+  get() {
+    return propsRef.value.value;
   },
-  set (val) {
-    emit('update:visible', val)
-  }
-})
+  set(val) {
+    propsRef.value.value = val;
+    emit("update:value", val);
+  },
+});
 
 const handleConfirm = () => {
-  emit('confirm')
-}
+  emit("confirm");
+};
 
-function setDrawerProps (props) {
-  propsRef.value = Object.assign(cloneDeep(unref(propsRef)), props)
-  if (!props) return
-  if (Reflect.has(props, 'visible')) {
-    visible.value = !!props.visible
+function setDrawerProps(props) {
+  propsRef.value = Object.assign(cloneDeep(unref(propsRef)), props);
+  if (!props) return;
+  if (Reflect.has(props, "value")) {
+    visible.value = !!props.value;
   }
 }
 
 onMounted(() => {
-  emit('register', {
-    setDrawerProps
-  }, instance.proxy._uid)
-})
+  emit(
+    "register",
+    {
+      setDrawerProps,
+    },
+    instance.proxy._uid
+  );
+});
+
+watch(
+  () => props.value,
+  (val) => {
+    visible.value = val;
+  }
+);
 </script>
 
 <style lang="scss" scoped>
