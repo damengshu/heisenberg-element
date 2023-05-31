@@ -49,6 +49,9 @@ function useTable (tableProps) {
     },
     getMergeArr (tableData, merge) {
       getTableInstance().getMergeArr(tableData, merge)
+    },
+    async reLoad () {
+      await getTableInstance().getTableData()
     }
   }
 

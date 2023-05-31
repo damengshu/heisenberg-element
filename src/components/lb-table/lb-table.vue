@@ -51,7 +51,6 @@ const tableAction = {
   sort (prop, order) {
     this.$refs.elTable.sort(prop, order)
   },
-
   getMergeArr (tableData, merge) {
     if (!merge) return
     this.mergeLine = {}
@@ -92,6 +91,7 @@ const tableAction = {
 }
 
 export default {
+  name: 'lb-table',
   props: {
     column: Array,
     data: Array,
@@ -147,7 +147,9 @@ export default {
   },
   async mounted () {
     this.$emit('register', this)
-    await this.getTableData()
+    if (this.api) {
+      await this.getTableData()
+    }
   },
   computed: {
     dataLength () {
@@ -185,6 +187,7 @@ export default {
       }
     },
     async getTableData () {
+      this.loading = true
       const { data } = this.tablePoprs.api && await this.tablePoprs.api({
         page: this.tablePagination.currentPage,
         limit: this.tablePagination.pageSize
@@ -199,6 +202,7 @@ export default {
           }
         }
       }
+      this.loading = false
     },
     paginationCurrentChange (val) {
       this.tablePagination.currentPage = val
