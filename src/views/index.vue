@@ -8,7 +8,7 @@
     <el-button @click="openD">打开Drawer</el-button>
     <TestDrawer @register="registerDrawer" />
     <el-button style="margin-left: 20px" @click="openDL">打开Dialog</el-button>
-    <TestDialog v-model="visible" @click="test" />
+    <TestDialog @register="registerDialog" @click="test" />
   </div>
 </template>
 
@@ -23,11 +23,45 @@ import { ref } from "vue";
 import LbTable from "../components/lb-table/lb-table.vue";
 import { useTable } from "../hooks/useTable/index";
 import { useDrawer } from "../hooks/useDrawer/index";
+import { useDialog } from "../hooks/useDialog/index";
 import TestDrawer from "./drawer.vue";
 import TestDialog from "./dialogCom.vue";
 
 import axios from "axios";
 
+const [registerDialog, { openDialog }] = useDialog();
+
+const [register] = useTable({
+  column: [
+    {
+      prop: "date",
+      label: "日期",
+      slot: "date",
+    },
+    {
+      prop: "name",
+      label: "姓名",
+    },
+    {
+      prop: "province",
+      label: "省份",
+    },
+    {
+      prop: "city",
+      label: "市区",
+    },
+    {
+      prop: "address",
+      label: "地址",
+    },
+    {
+      prop: "zip",
+      label: "邮编",
+    },
+  ],
+  pagination: true,
+  height: "719",
+});
 const [registerDrawer, { openDrawer, closeDrawer }] = useDrawer();
 const visible = ref(false);
 
@@ -107,38 +141,6 @@ const test = async (params) => {
   return data;
 };
 
-const [register] = useTable({
-  column: [
-    {
-      prop: "date",
-      label: "日期",
-      slot: "date",
-    },
-    {
-      prop: "name",
-      label: "姓名",
-    },
-    {
-      prop: "province",
-      label: "省份",
-    },
-    {
-      prop: "city",
-      label: "市区",
-    },
-    {
-      prop: "address",
-      label: "地址",
-    },
-    {
-      prop: "zip",
-      label: "邮编",
-    },
-  ],
-  pagination: true,
-  height: "719",
-});
-
 const getDate = (scope) => {
   return scope.row.date;
 };
@@ -150,6 +152,6 @@ const openD = () => {
 };
 
 const openDL = () => {
-  visible.value = true;
+  openDialog();
 };
 </script>

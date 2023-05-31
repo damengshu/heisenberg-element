@@ -55,7 +55,7 @@ export function useDrawer () {
       }
     },
     closeDrawer: () => {
-      getInstance() && getInstance().setDrawerProps({ visible: false });
+      getInstance() && getInstance().setDrawerProps({ value: false });
     },
     setConfirmLoadong: (loading = true) => {
       getInstance() && getInstance().setConfirmLoadong(loading);
@@ -95,7 +95,7 @@ export function useDrawerInner (callbackFn) {
       getInstance() && getInstance().setDrawerProps(props);
     },
     closeDrawer: () => {
-      getInstance() && getInstance().setDrawerProps({ visible: false });
+      getInstance() && getInstance().setDrawerProps({ value: false });
     },
     setConfirmLoadong: (loading = true) => {
       getInstance() && getInstance().setDrawerProps({ confirmLoading: loading });

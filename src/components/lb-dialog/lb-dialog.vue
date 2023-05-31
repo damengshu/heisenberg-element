@@ -27,8 +27,11 @@
   </el-dialog>
 </template>
 
-<script lang="ts" setup>
-import { computed, ref } from "vue";
+<script setup>
+import { computed, ref, unref, watch, getCurrentInstance } from "vue";
+import { cloneDeep } from "loadsh";
+
+const instance = getCurrentInstance();
 
 const props = defineProps({
   value: {
@@ -43,15 +46,16 @@ const props = defineProps({
 
 const visible = computed({
   get() {
-    return props.value;
+    return propsRef.value.value;
   },
   set(val) {
+    propsRef.value.value = val;
     emit("input", val);
   },
 });
 
 const propsRef = ref({
-  visible: false,
+  value: false,
   confirmLoading: false,
 });
 const emit = defineEmits(["input", "confirm", "register"]);
@@ -59,6 +63,30 @@ const emit = defineEmits(["input", "confirm", "register"]);
 const handleConfirm = () => {
   emit("confirm");
 };
+
+function setDialogProps(props) {
+  propsRef.value = Object.assign(cloneDeep(unref(propsRef)), props);
+  if (!props) return;
+  if (Reflect.has(props, "value")) {
+    visible.value = !!props.value;
+  }
+}
+
+watch(
+  () => props.value,
+  (val) => {
+    propsRef.value.value = val;
+  }
+);
+
+watch(
+  () => props.confirmLoadong,
+  (val) => {
+    propsRef.value.confirmLoading = val;
+  }
+);
+
+emit("register", { setDialogProps }, instance.proxy._uid);
 </script>
 
 <style lang="scss" scoped>
