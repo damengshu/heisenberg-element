@@ -55,10 +55,10 @@ export function useDialog () {
       }
     },
     closeDialog: () => {
-      getInstance() && getInstance().setDialogProps({ visible: false });
+      getInstance() && getInstance().setDialogProps({ value: false });
     },
     setConfirmLoadong: (loading = true) => {
-      getInstance() && getInstance().setConfirmLoadong(loading);
+      getInstance() && getInstance().setDialogProps({ confirmLoading: loading });
     }
   }
 

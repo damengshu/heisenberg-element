@@ -13,7 +13,7 @@
     <div>
       <div class="drawer-footer">
         <slot name="footer">
-          <el-button @click="visible = false">取消</el-button>
+          <el-button @click="handleClose">取消</el-button>
           <el-button
             type="primary"
             @click="handleConfirm"
@@ -26,6 +26,12 @@
     </div>
   </el-drawer>
 </template>
+
+<script>
+export default {
+  name: "LbDrawer",
+};
+</script>
 
 <script setup name="lb-drawer">
 import {
@@ -55,7 +61,7 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits(["update:value", "confirm", "register"]);
+const emit = defineEmits(["update:value", "confirm", "register", "close"]);
 
 const visible = computed({
   get() {
@@ -69,6 +75,11 @@ const visible = computed({
 
 const handleConfirm = () => {
   emit("confirm");
+};
+
+const handleClose = () => {
+  visible.value = false;
+  emit("close");
 };
 
 function setDrawerProps(props) {
@@ -93,6 +104,13 @@ watch(
   () => props.value,
   (val) => {
     visible.value = val;
+  }
+);
+
+watch(
+  () => props.confirmLoadong,
+  (val) => {
+    propsRef.value.confirmLoading = val;
   }
 );
 </script>

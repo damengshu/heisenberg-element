@@ -4,6 +4,7 @@
     v-on="$listeners"
     title="title"
     @register="register"
+    :confirmLoadong="true"
   >
     <el-button @click="closeDrawer()">内部关闭</el-button>
     <el-button @click="setConfirmLoadong()">加载</el-button>

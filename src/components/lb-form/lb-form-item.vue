@@ -1,4 +1,4 @@
-<script setup>
+<script setup name="lb-form-item">
 import { computed } from "vue";
 import { componentMap } from "./componentMap";
 
@@ -61,6 +61,12 @@ const compPoprs = () => {
 emit("update:model", props.schema.defaultValue, props.schema.field);
 // Reflect.has(props.schema, "defaultValue") &&
 //   emit("update:model", props.schema.defaultValue, props.schema.field);
+</script>
+
+<script>
+export default {
+  name: "LbFormItem",
+};
 </script>
 
 <template>

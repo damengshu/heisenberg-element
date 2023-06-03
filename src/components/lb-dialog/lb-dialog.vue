@@ -13,7 +13,7 @@
     <div>
       <slot name="footer">
         <div class="dialog-footer">
-          <el-button>取消</el-button>
+          <el-button @click="handleCancel">取消</el-button>
           <el-button
             type="primary"
             @click="handleConfirm"
@@ -27,7 +27,13 @@
   </el-dialog>
 </template>
 
-<script setup>
+<script>
+export default {
+  name: "LbDialog",
+};
+</script>
+
+<script setup name="lb-ialog">
 import { computed, ref, unref, watch, getCurrentInstance } from "vue";
 import { cloneDeep } from "loadsh";
 
@@ -38,7 +44,7 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-  confirmLoadong: {
+  confirmLoading: {
     type: Boolean,
     default: false,
   },
@@ -58,10 +64,15 @@ const propsRef = ref({
   value: false,
   confirmLoading: false,
 });
-const emit = defineEmits(["input", "confirm", "register"]);
+const emit = defineEmits(["input", "confirm", "register", "cancel"]);
 
 const handleConfirm = () => {
   emit("confirm");
+};
+
+const handleCancel = () => {
+  visible.value = false;
+  emit("cancel");
 };
 
 function setDialogProps(props) {
@@ -80,7 +91,7 @@ watch(
 );
 
 watch(
-  () => props.confirmLoadong,
+  () => props.confirmLoading,
   (val) => {
     propsRef.value.confirmLoading = val;
   }

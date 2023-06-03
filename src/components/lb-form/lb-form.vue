@@ -1,4 +1,4 @@
-<script setup>
+<script setup name="lb-form">
 import Vue, { reactive, ref, onMounted, watch } from "vue";
 import LbFormItem from "./lb-form-item.vue";
 import { isFunction, isArray } from "../../util/is";
@@ -136,6 +136,12 @@ watch(
 );
 
 defineExpose(formAction);
+</script>
+
+<script>
+export default {
+  name: "LbForm",
+};
 </script>
 
 <template>

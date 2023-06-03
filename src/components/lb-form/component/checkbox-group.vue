@@ -5,7 +5,7 @@
     </el-checkbox>
   </el-checkbox-group>
 </template>
-<script setup>
+<script setup name="lb-checkbox-group">
 import { computed } from "vue";
 
 const props = defineProps({
@@ -29,4 +29,10 @@ const modelValue = computed({
 });
 
 const emit = defineEmits(["input"]);
+</script>
+
+<script>
+export default {
+  name: "LbCheckboxGroup",
+};
 </script>

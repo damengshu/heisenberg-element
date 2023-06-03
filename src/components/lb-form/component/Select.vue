@@ -10,7 +10,7 @@
   </el-select>
 </template>
 
-<script setup>
+<script setup name="lb-select">
 import { computed } from "vue";
 const props = defineProps({
   options: {
@@ -31,4 +31,10 @@ const modelValue = computed({
 });
 
 const emit = defineEmits(["change"]);
+</script>
+
+<script>
+export default {
+  name: "LbSelect",
+};
 </script>

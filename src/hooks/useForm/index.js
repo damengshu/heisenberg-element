@@ -51,6 +51,9 @@ export function useForm (props) {
     },
     updateSchema: (schema, index) => {
       formRef.value.updateSchema(schema, index);
+    },
+    submit: () => {
+      return formRef.value.submit();
     }
   }
 

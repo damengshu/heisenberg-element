@@ -9,7 +9,7 @@
     </el-option>
   </el-select>
 </template>
-<script setup>
+<script setup name="lb-api-select">
 import { computed, onMounted, ref } from "vue";
 import { isArray } from "../../../util/is";
 
@@ -57,4 +57,10 @@ onMounted(async () => {
 });
 
 const emit = defineEmits(["change"]);
+</script>
+
+<script>
+export default {
+  name: "LbApiSelect",
+};
 </script>

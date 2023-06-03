@@ -1,6 +1,6 @@
 {
   "name": "heisenberg-element",
-  "version": "0.0.93",
+  "version": "0.1.1",
   "main": "lib/heisenberg-element.umd.js",
   "author": "damengshu",
   "description": "基于element-ui实现的二次封装",
@@ -12,7 +12,7 @@
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs",
     "lib": "vue-cli-service build --target lib --name heisenberg-element --dest lib src/index.js",
-    "publish": "npm run lib && npm publish"
+    "publish": "npm publish"
   },
   "dependencies": {
     "@babel/eslint-parser": "^7.21.8",

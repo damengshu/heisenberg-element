@@ -5,7 +5,7 @@
     </el-radio>
   </el-radio-group>
 </template>
-<script setup>
+<script setup name="lb-radio-group">
 import { computed } from "vue";
 
 const props = defineProps({
@@ -29,4 +29,10 @@ const modelValue = computed({
 });
 
 const emit = defineEmits(["input"]);
+</script>
+
+<script>
+export default {
+  name: "LbRadioGroup",
+};
 </script>

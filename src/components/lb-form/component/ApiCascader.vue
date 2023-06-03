@@ -7,7 +7,13 @@
   />
 </template>
 
-<script setup>
+<script>
+export default {
+  name: "LbApiCascader",
+};
+</script>
+
+<script setup name="lb-api-cascader">
 import { computed, onMounted, ref } from "vue";
 
 const props = defineProps({
