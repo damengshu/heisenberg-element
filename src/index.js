@@ -1,5 +1,7 @@
 import { useTable } from './hooks/useTable';
 import { useDrawer, useDrawerInner } from "./hooks/useDrawer";
+import { useDialog, useDialogInner } from "./hooks/useDialog";
+import { useForm } from "./hooks/useForm";
 
 const requireComponents = require.context('./components', true, /\.vue$/)
 
@@ -24,5 +26,8 @@ export default {
 export {
   useTable,
   useDrawer,
-  useDrawerInner
+  useDrawerInner,
+  useDialog,
+  useDialogInner,
+  useForm
 }
