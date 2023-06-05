@@ -1,0 +1,35 @@
+{
+  "name": "heisenberg-element",
+  "version": "0.1.12",
+  "main": "lib/heisenberg-element.umd.js",
+  "author": "damengshu",
+  "description": "基于element-ui实现的二次封装",
+  "allow-same-version": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint",
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs",
+    "lib": "vue-cli-service build --target lib --name heisenberg-element --dest lib src/index.js",
+    "publish": "npm publish"
+  },
+  "dependencies": {
+    "@babel/eslint-parser": "^7.21.8",
+    "axios": "^1.4.0",
+    "highlight.js": "^9.15.6",
+    "loadsh": "^0.0.4",
+    "vue": "^2.7.0",
+    "vue-highlight.js": "^3.1.0",
+    "webpack-dev-middleware": "^3.6.0"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^3.5.0",
+    "@vue/cli-service": "^3.5.0",
+    "element-ui": "^2.9.1",
+    "node-sass": "^6.0.0",
+    "sass-loader": "5.0.0",
+    "vue-template-compiler": "^2.5.21",
+    "vuepress": "^0.14.10"
+  }
+}
