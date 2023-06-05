@@ -1,6 +1,6 @@
 {
   "name": "heisenberg-element",
-  "version": "0.1.11",
+  "version": "0.1.12",
   "main": "lib/heisenberg-element.umd.js",
   "author": "damengshu",
   "description": "基于element-ui实现的二次封装",
