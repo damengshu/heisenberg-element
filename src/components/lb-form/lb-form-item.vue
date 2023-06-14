@@ -72,12 +72,12 @@ export default {
 <template>
   <el-form-item v-bind="formItemPorp" :prop="schema.field">
     <Comp
-      if="!schema.slot"
+      v-if="!schema.slot"
       v-model="modelValue"
       :is="Comp()"
       v-bind="compPoprs()"
       @change="($event) => emit('update:model', $event, schema.field)"
     />
-    <template name="schema.slot" :data="schema"></template>
+    <slot v-else :name="schema.slot" v-bind="{ model, schema }"></slot>
   </el-form-item>
 </template>
