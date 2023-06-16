@@ -1,6 +1,5 @@
 <template>
   <div class="lb-table" ref="table" v-loading="loading">
-    {{ tablePoprs.column }}
     <el-table
       ref="elTable"
       v-bind="tablePoprs"
@@ -9,6 +8,7 @@
       :span-method="
         tablePoprs.merge ? tablePoprs.mergeMethod : tablePoprs.spanMethod
       "
+      @current-change="handleCurrentChange"
     >
       <lb-column
         v-bind="tablePoprs"
@@ -106,6 +106,9 @@ const tableAction = {
   setLoading(state) {
     this.loading = state;
   },
+  getSelection() {
+    return this.$refs.elTable.selection;
+  },
 };
 
 export default {
@@ -153,6 +156,7 @@ export default {
       mergeIndex: {},
       loading: false,
       innerProps: {},
+      currentRow: null,
       tablePagination: {
         currentPage: 1,
         pageSize: 10,
@@ -239,6 +243,9 @@ export default {
         pageSize: val,
       };
       this.getTableData();
+    },
+    handleCurrentChange(val) {
+      this.currentRow = val;
     },
   },
   watch: {

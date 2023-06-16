@@ -52,6 +52,13 @@ function useTable (tableProps) {
     },
     async reLoad () {
       await getTableInstance().getTableData()
+    },
+    getSelection () {
+      const single = getTableInstance().tablePoprs.highlightCurrentRow
+      if (single) {
+        return getTableInstance().$data.currentRow
+      }
+      return getTableInstance().getSelection()
     }
   }
 

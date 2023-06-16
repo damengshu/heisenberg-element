@@ -501,85 +501,15 @@ const schemas = [
     },
   },
   {
-    field: "field31",
-    component: "Input",
-    label: "下拉本地搜索",
-    helpMessage: [
-      "ApiSelect组件",
-      "远程数据源本地搜索",
-      "只发起一次请求获取所有选项",
-    ],
-    required: true,
-    slot: "localSearch",
+    field: "field12",
+    label: "字段12",
     colProps: {
       span: 8,
     },
-    defaultValue: "0",
-  },
-  {
-    field: "field32",
-    component: "Input",
-    label: "下拉远程搜索",
-    helpMessage: ["ApiSelect组件", "将关键词发送到接口进行远程搜索"],
-    required: true,
-    slot: "remoteSearch",
-    colProps: {
-      span: 8,
+    show: (data) => {
+      return data.field7 === "1";
     },
-    defaultValue: "0",
-  },
-  {
-    field: "divider-selects",
-    component: "Divider",
-    label: "互斥多选",
-    labelWidth: "100px",
-    helpMessage: ["两个Select共用数据源", "但不可选择对方已选中的项目"],
-    colProps: {
-      span: 24,
-    },
-  },
-  {
-    field: "selectA",
-    component: "Select",
-    label: "互斥SelectA",
-    slot: "selectA",
-    defaultValue: [],
-    colProps: {
-      span: 8,
-    },
-  },
-  {
-    field: "selectB",
-    component: "Select",
-    label: "互斥SelectB",
-    slot: "selectB",
-    defaultValue: [],
-    colProps: {
-      span: 8,
-    },
-  },
-  {
-    field: "divider-deconstruct",
-    component: "Divider",
-    label: "字段解构",
-    labelWidth: "100px",
-    helpMessage: [
-      "如果组件的值是 array 或者 object",
-      "可以根据 ES6 的解构语法分别取值",
-    ],
-    colProps: {
-      span: 24,
-    },
-  },
-  {
-    field: "[startTime, endTime]",
-    label: "时间范围",
-    component: "RangePicker",
-    componentProps: {
-      format: "YYYY-MM-DD HH:mm:ss",
-      placeholder: ["开始时间", "结束时间"],
-      showTime: { format: "HH:mm:ss" },
-    },
+    slot: "test",
   },
 ];
 
@@ -603,9 +533,10 @@ const [
   schemas: schemas,
 });
 
-const [register] = useTable({
+const [register, { getSelection }] = useTable({
   pagination: true,
   height: "719",
+  highlightCurrentRow: true,
 });
 const [registerDrawer, { openDrawer, closeDrawer }] = useDrawer();
 const visible = ref(false);
@@ -654,9 +585,6 @@ const data = ref([
   },
 ]);
 const column = ref([
-  {
-    type: "selection",
-  },
   {
     prop: "date",
     label: "日期",
@@ -747,11 +675,17 @@ const handleUpdateSchema = () => {
     },
   ]);
 };
+
+const getTableSelection = () => {
+  console.log(getSelection());
+};
 </script>
 
 <template>
   <div>
-    <LbForm ref="formRef" @register="registerForm" />
+    <LbForm ref="formRef" @register="registerForm">
+      <template #test="{ model, schema }"> {{ model }} {{ schema }}</template>
+    </LbForm>
     <el-button @click="refSubmit">ref提交</el-button>
     <el-button @click="setValue">设置字段一</el-button>
     <el-button @click="validate1">验证自断一</el-button>
@@ -765,6 +699,7 @@ const handleUpdateSchema = () => {
         {{ getDate(slotScope) }}
       </template>
     </LbTable>
+    <el-button @click="getTableSelection">获取选中</el-button>
     <el-button @click="openD">打开Drawer</el-button>
     <TestDrawer @register="registerDrawer" />
     <el-button style="margin-left: 20px" @click="openDL">打开Dialog</el-button>

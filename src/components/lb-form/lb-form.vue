@@ -1,7 +1,7 @@
 <script setup name="lb-form">
 import Vue, { reactive, ref, onMounted, watch, isRef } from "vue";
 import LbFormItem from "./lb-form-item.vue";
-import { isFunction, isArray } from "../../util/is";
+import { isFunction, isArray, isBoolean } from "../../util/is";
 
 const props = defineProps({
   model: {
@@ -189,6 +189,18 @@ watch(
   }
 );
 
+const getShow = (schema) => {
+  let isShow = true;
+  const { show } = schema;
+  if (isFunction(show)) {
+    return show(modelValue);
+  }
+  if (isBoolean(show)) {
+    isShow = show.value;
+  }
+  return isShow;
+};
+
 defineExpose(formAction);
 </script>
 
@@ -220,14 +232,15 @@ export default {
         v-for="schema in propsRef.schemas"
         :key="schema.prop"
         v-bind="getBseColProps(schema)"
+        v-if="getShow(schema)"
       >
         <LbFormItem
           :schema="schema"
           :model="modelValue"
           @update:model="setModel"
         >
-          <template v-slot:cover="{ model, schema }">
-            <slot name="cover" v-bind="{ model, schema }"></slot>
+          <template #[schema.slot]="{ model, schema }">
+            <slot :name="schema.slot" v-bind="{ model, schema }"></slot>
           </template>
         </LbFormItem>
       </el-col>
