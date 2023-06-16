@@ -20,9 +20,6 @@ import { useAttrs, useListeners } from "vue";
 const attrs = useAttrs();
 const listeners = useListeners();
 
-console.log(attrs);
-console.log(listeners);
-
 const [register, { closeDialog, setConfirmLoadong }] = useDialogInner(
   (data) => {
     console.log(data);

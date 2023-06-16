@@ -604,33 +604,6 @@ const [
 });
 
 const [register] = useTable({
-  column: [
-    {
-      prop: "date",
-      label: "日期",
-      slot: "date",
-    },
-    {
-      prop: "name",
-      label: "姓名",
-    },
-    {
-      prop: "province",
-      label: "省份",
-    },
-    {
-      prop: "city",
-      label: "市区",
-    },
-    {
-      prop: "address",
-      label: "地址",
-    },
-    {
-      prop: "zip",
-      label: "邮编",
-    },
-  ],
   pagination: true,
   height: "719",
 });
@@ -681,6 +654,9 @@ const data = ref([
   },
 ]);
 const column = ref([
+  {
+    type: "selection",
+  },
   {
     prop: "date",
     label: "日期",
@@ -784,7 +760,7 @@ const handleUpdateSchema = () => {
     <el-button @click="clearValidate2">清除验证</el-button>
     <el-button @click="handleUpdateSchema">设置Schema</el-button>
 
-    <LbTable @register="register" :data="data">
+    <LbTable @register="register" :column="column" :data="data">
       <template v-slot:date="{ slotScope }">
         {{ getDate(slotScope) }}
       </template>

@@ -1,5 +1,6 @@
 <template>
   <div class="lb-table" ref="table" v-loading="loading">
+    {{ tablePoprs.column }}
     <el-table
       ref="elTable"
       v-bind="tablePoprs"
@@ -9,13 +10,16 @@
         tablePoprs.merge ? tablePoprs.mergeMethod : tablePoprs.spanMethod
       "
     >
-      <div v-for="(item, index) in tablePoprs.column" :key="index">
-        <lb-column v-bind="tablePoprs" :column="item">
-          <template v-if="item.slot" v-slot:[item.slot]="{ slotScope }">
-            <slot :name="item.slot" :slot-scope="slotScope" />
-          </template>
-        </lb-column>
-      </div>
+      <lb-column
+        v-bind="tablePoprs"
+        :column="item"
+        v-for="(item, index) in tablePoprs.column"
+        :key="index"
+      >
+        <template v-if="item.slot" v-slot:[item.slot]="{ slotScope }">
+          <slot :name="item.slot" :slot-scope="slotScope" />
+        </template>
+      </lb-column>
     </el-table>
     <el-pagination
       :style="{
@@ -202,7 +206,7 @@ export default {
     },
     async getTableData() {
       this.loading = true;
-      const { data } =
+      const data =
         this.tablePoprs.api &&
         (await this.tablePoprs.api({
           page: this.tablePagination.currentPage,
