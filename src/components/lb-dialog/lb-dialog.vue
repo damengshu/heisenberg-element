@@ -1,5 +1,10 @@
 <template>
-  <el-dialog class="ld-dialog" v-bind="$attrs" :visible.sync="visible">
+  <el-dialog
+    class="ld-dialog"
+    v-bind="$attrs"
+    v-on="$listeners"
+    :visible.sync="visible"
+  >
     <template #title>
       <div>
         <slot name="title">

@@ -2,6 +2,7 @@ import { useTable } from './hooks/useTable';
 import { useDrawer, useDrawerInner } from "./hooks/useDrawer";
 import { useDialog, useDialogInner } from "./hooks/useDialog";
 import { useForm } from "./hooks/useForm";
+import overlayAutoClose from "./components/el-overlay-auto-close";
 
 const requireComponents = require.context('./components', true, /\.vue$/)
 
@@ -13,6 +14,7 @@ const install = (Vue) => {
     const componentName = config.default.name // 获取组件名，即vue文件中的name
     Vue.component(componentName, config.default) // 注册组件
   })
+  overlayAutoClose(Vue)
 }
 
 if (typeof window !== 'undefined' && window.Vue) {

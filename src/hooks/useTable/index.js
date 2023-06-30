@@ -59,7 +59,7 @@ function useTable (tableProps) {
         return getTableInstance().$data.currentRow
       }
       return getTableInstance().getSelection()
-    }
+    },
   }
 
   return [register, methods]

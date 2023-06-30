@@ -2,8 +2,10 @@ import Vue from 'vue'
 import App from './App.vue'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
+import overlayAutoClose from "./components/el-overlay-auto-close.js";
 
 Vue.use(ElementUI)
+Vue.use(overlayAutoClose)
 
 Vue.config.productionTip = false
 

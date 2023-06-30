@@ -1,5 +1,5 @@
 <script setup name="lb-form">
-import Vue, { reactive, ref, onMounted, watch, isRef } from "vue";
+import Vue, { reactive, ref, onMounted, watch, isRef, watchEffect } from "vue";
 import LbFormItem from "./lb-form-item.vue";
 import { isFunction, isArray, isBoolean } from "../../util/is";
 
@@ -70,7 +70,7 @@ const propsRef = ref({ labelPosition: "right", labelWidth: "100px" });
 const emit = defineEmits(["register"]);
 
 const setModel = (val, field) => {
-  Vue.set(modelValue, field, val);
+  return Vue.set(modelValue, field, val);
 };
 
 const getBseColProps = (schema) => {
@@ -135,11 +135,10 @@ const clearValidate = (props) => {
 };
 
 const setFieldsValue = (model) => {
-  Object.keys(model).forEach((key) => {
-    setModel(model[key], key);
-  });
+  for (const item of propsRef.value.schemas) {
+    setModel(model[item.setField || item.field], item.field);
+  }
 };
-
 const updateSchema = (schema, insertionIndex) => {
   const schemas = propsRef.value.schemas;
   if (!isArray(schema)) {
@@ -232,9 +231,9 @@ export default {
         v-for="schema in propsRef.schemas"
         :key="schema.prop"
         v-bind="getBseColProps(schema)"
-        v-if="getShow(schema)"
       >
         <LbFormItem
+          v-if="getShow(schema)"
           :schema="schema"
           :model="modelValue"
           @update:model="setModel"

@@ -20,6 +20,7 @@ const modelValue = computed({
     return props.model[props.schema.field];
   },
   set(val) {
+    console.log(val, props.schema.field);
     emit("update:model", val, props.schema.field);
   },
 });
@@ -58,9 +59,11 @@ const compPoprs = () => {
   const { componentProps } = props.schema;
   return componentProps;
 };
-emit("update:model", props.schema.defaultValue, props.schema.field);
-// Reflect.has(props.schema, "defaultValue") &&
-//   emit("update:model", props.schema.defaultValue, props.schema.field);
+
+// emit("update:model", props.schema.defaultValue, props.schema.field);
+
+Reflect.has(props.schema, "defaultValue") &&
+  emit("update:model", props.schema.defaultValue, props.schema.field);
 </script>
 
 <script>

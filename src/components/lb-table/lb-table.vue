@@ -1,5 +1,13 @@
 <template>
   <div class="lb-table" ref="table" v-loading="loading">
+    <div class="table-header">
+      <div class="header-left">
+        <slot name="headerLeft" />
+      </div>
+      <div class="header-right">
+        <slot name="headerRight" />
+      </div>
+    </div>
     <el-table
       ref="elTable"
       v-bind="tablePoprs"
@@ -116,6 +124,10 @@ export default {
   props: {
     column: Array,
     data: Array,
+    delayed: {
+      type: Boolean,
+      default: false,
+    },
     spanMethod: Function,
     pagination: {
       type: Boolean,
@@ -169,7 +181,7 @@ export default {
   },
   async mounted() {
     this.$emit("register", this);
-    if (this.api) {
+    if (this.api && !this.delayed) {
       await this.getTableData();
     }
   },
@@ -258,3 +270,18 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+.lb-table {
+  .table-header {
+    display: flex;
+    .header-left,
+    .header-right {
+      flex: 1;
+    }
+    .header-right {
+      text-align: right;
+    }
+  }
+}
+</style>

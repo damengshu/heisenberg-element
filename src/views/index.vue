@@ -312,6 +312,7 @@ const schemas = [
     field: "field1",
     component: "Input",
     label: "字段1",
+    setField: "aaa",
     colProps: {
       span: 8,
     },
@@ -391,18 +392,18 @@ const schemas = [
     },
   },
   {
-    field: "field9",
+    field: "field7",
     component: "Switch",
-    label: "字段9",
+    label: "字段7",
     colProps: {
       span: 8,
     },
     defaultValue: true,
   },
   {
-    field: "field7",
+    field: "field8",
     component: "RadioGroup",
-    label: "字段7",
+    label: "字段8",
     colProps: {
       span: 8,
     },
@@ -420,9 +421,9 @@ const schemas = [
     },
   },
   {
-    field: "field11",
+    field: "field9",
     component: "Cascader",
-    label: "字段11",
+    label: "字段9",
     colProps: {
       span: 8,
     },
@@ -464,18 +465,9 @@ const schemas = [
     },
   },
   {
-    field: "divider-api-select",
-    component: "Divider",
-    label: "远程下拉演示",
-    labelWidth: "100px",
-    colProps: {
-      span: 24,
-    },
-  },
-  {
-    field: "field8",
+    field: "field10",
     component: "ApiSelect",
-    label: "字段8",
+    label: "字段10",
     colProps: {
       span: 8,
     },
@@ -487,9 +479,9 @@ const schemas = [
     },
   },
   {
-    field: "field10",
+    field: "field11",
     component: "ApiCascader",
-    label: "字段10",
+    label: "字段11",
     colProps: {
       span: 8,
     },
@@ -503,13 +495,21 @@ const schemas = [
   {
     field: "field12",
     label: "字段12",
+    component: "Input",
     colProps: {
       span: 8,
     },
     show: (data) => {
-      return data.field7 === "1";
+      return data.field7;
     },
-    slot: "test",
+  },
+  {
+    field: "field13",
+    component: "DateTimePicker",
+    label: "字段13",
+    colProps: {
+      span: 8,
+    },
   },
 ];
 
@@ -640,7 +640,8 @@ const refSubmit = async () => {
 
 const setValue = () => {
   setFieldsValue({
-    field1: "123",
+    aaa: "123",
+    field12: "123123",
   });
 };
 
